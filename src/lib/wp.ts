@@ -29,3 +29,16 @@ export const getLatestPostInfo = async ({perPage = 10} : {perPage?: number} = {}
 
     return posts;
 };
+
+export const getPostInfo = async (slug: string) => {
+    const response = await fetch(`${apiUrl}/posts?slug=${slug}`);
+
+
+    const [data] = await response.json();
+    const {
+        title: { rendered: title }, 
+        content: { rendered: content }
+    } = data;
+
+    return { title, content };
+};
