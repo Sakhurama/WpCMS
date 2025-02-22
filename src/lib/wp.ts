@@ -31,14 +31,13 @@ export const getLatestPostInfo = async ({perPage = 10} : {perPage?: number} = {}
 };
 
 export const getPostInfo = async (slug: string) => {
-    const response = await fetch(`${apiUrl}/posts?slug=${slug}`);
+    const response = await fetch(`${apiUrl}/posts?slug=${slug}&_embed`);
 
 
     const [data] = await response.json();
-    const {
-        title: { rendered: title }, 
-        content: { rendered: content }
-    } = data;
+    const title = data.title.rendered;
+    const content = data.content.rendered;
+    const bannerImage = data._embedded['wp:featuredmedia'][0].source_url;
 
-    return { title, content };
+    return { title, content, bannerImage };
 };

@@ -7,11 +7,16 @@ if (!slug) {
     return Astro.redirect('/404');
 }
 
-const { title, content } = await getPostInfo(slug);
+const { title, content, bannerImage } = await getPostInfo(slug);
 export const prerender = false;
 ---
 
 <Layout>
+    <img
+        alt={title}
+        src={bannerImage}
+        class="h-64 w-full object-cover sm:h-80 lg:h-96"
+    />
     <article class="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <h1 class="text-center text-3xl font-bold">{title}</h1>
         <div class="mt-4 mx-auto max-w-3xl" set:html={content}></div>
