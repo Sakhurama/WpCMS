@@ -3,6 +3,10 @@ import { date } from 'astro:schema';
 import Banner from '../components/Banner.astro';
 import Layout from '../layouts/Layout.astro';
 import GameCard from '../components/GameCard.astro';
+import { getLatestPostInfo } from '../lib/wp';
+
+const posts = await getLatestPostInfo({ perPage: 3 });
+
 
 const postDestacados = [
 	{
@@ -36,7 +40,7 @@ const postDestacados = [
 			Ultimos artículos
 		</h2>
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-8">
-			{postDestacados.map((post) => <GameCard {...post} />)}
+			{posts.map((post:any) => <GameCard {...post} />)}
 		</div>
 	</section>
 </Layout>
